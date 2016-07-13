@@ -1,6 +1,6 @@
 package cn.mianyang.song314.android_cameralib.settings;
 
-import android.hardware.Camera;
+import cn.mianyang.song314.android_cameralib.hal.IParameters;
 
 /**
  * time: 7/12/16
@@ -14,7 +14,7 @@ public class ExposureSetting extends BaseSetting<Float> {
     public CharSequence[] text;
 
     @Override
-    public boolean isSupport(Camera.Parameters parameters) {
+    public boolean isSupport(IParameters parameters) {
         int max = parameters.getMaxExposureCompensation();
         int min = parameters.getMinExposureCompensation();
         float step = parameters.getExposureCompensationStep();
@@ -40,7 +40,7 @@ public class ExposureSetting extends BaseSetting<Float> {
 
 
     @Override
-    public void set(Camera.Parameters parameters, Float value) {
+    public void set(IParameters parameters, Float value) {
         parameters.setExposureCompensation(value.intValue());
     }
 }

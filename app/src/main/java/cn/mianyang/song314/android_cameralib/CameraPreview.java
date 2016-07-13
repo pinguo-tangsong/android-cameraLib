@@ -9,15 +9,18 @@ import android.view.SurfaceView;
 
 import java.io.IOException;
 
+import cn.mianyang.song314.android_cameralib.hal.ICamera;
+import cn.mianyang.song314.android_cameralib.hal.IParameters;
+
 /** A basic Camera preview class */
 public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback {
     private static final String TAG = "CameraPreview";
     private SurfaceHolder mHolder;
-    private Camera mCamera;
+    private ICamera mCamera;
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
     private int mRatioWidth = 0;
     private int mRatioHeight = 0;
-    private Camera.Parameters mParam;
+    private IParameters mParam;
 
     public CameraPreview(Context context) {
         super(context);
@@ -29,7 +32,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
     }
 
-    public void setCamera(Camera camera, int id) {
+    public void setCamera(ICamera camera, int id) {
         mCamera = camera;
         mCameraId = id;
         mParam = camera.getParameters();
@@ -47,7 +50,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             mCamera.setPreviewDisplay(holder);
-            CameraLibUtils.setCameraDisplayOrientation((Activity) getContext(), mCameraId, mCamera);
+            CameraLibUtils.setCameraDisplayOrientation((Activity) getContext(), mCameraId, mCamera.get());
             mCamera.startPreview();
 
         } catch (IOException e) {

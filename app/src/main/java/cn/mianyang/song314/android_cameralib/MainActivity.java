@@ -12,18 +12,18 @@ import android.widget.Button;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.mianyang.song314.android_cameralib.hal.ICamera;
+import cn.mianyang.song314.android_cameralib.hal.LibCamera;
 import cn.mianyang.song314.android_cameralib.settings.ExposureSetting;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Camera mCamera;
+    private ICamera mCamera;
     private CameraPreview mPreview;
     private int mCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
 
     @BindView(R.id.button_switch)
     Button mBtnSwitch;
-
-    Camera.Parameters mParameters;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         // Create an instance of Camera
-        mCamera = getCameraInstance(mCameraId);
-
+        mCamera = new LibCamera(mCameraId);
+        mCamera.open();
         // Create our Preview view and set it as the content of our activity.
         mPreview = new CameraPreview(this);
         mPreview.setCamera(mCamera, mCameraId);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final int cameraId = mCameraId == Camera.CameraInfo.CAMERA_FACING_BACK ? Camera.CameraInfo.CAMERA_FACING_FRONT : Camera.CameraInfo.CAMERA_FACING_BACK;
                 mCameraId = cameraId;
-                mCamera = getCameraInstance(cameraId);
+                mCamera = new LibCamera(mCameraId);
                 mPreview.setCamera(mCamera,cameraId);
                 mPreview.surfaceCreated(mPreview.getHolder());
             }
@@ -59,30 +59,16 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.button_capture)
     public void expore() {
         final ExposureSetting exposureSetting = new ExposureSetting();
-        if (exposureSetting.isSupport(mParameters)) {
+        if (exposureSetting.isSupport(mCamera.getParameters())) {
             new AlertDialog.Builder(this)
                     .setItems(exposureSetting.text, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            exposureSetting.set(mParameters, exposureSetting.value[i]);
-                            mCamera.setParameters(mParameters);
+                            exposureSetting.set(mCamera.getParameters(), exposureSetting.value[i]);
+                            mCamera.setParameters(mCamera.getParameters());
                         }
                     }).show();
         }
     }
 
-    /** A safe way to get an instance of the Camera object.
-     * @param id*/
-    public Camera getCameraInstance(int id){//todo remove
-        Camera c = null;
-        try {
-            c = Camera.open(id); // attempt to get a Camera instance
-            mParameters = c.getParameters();
-
-        }
-        catch (Exception e){
-            // Camera is not available (in use or does not exist)
-        }
-        return c; // returns null if camera is unavailable
-    }
 }

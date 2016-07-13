@@ -1,6 +1,6 @@
 package cn.mianyang.song314.android_cameralib.settings;
 
-import android.hardware.Camera;
+import cn.mianyang.song314.android_cameralib.hal.IParameters;
 
 /**
  * time: 7/12/16
@@ -10,7 +10,7 @@ import android.hardware.Camera;
  */
 public interface ISetting<T> {
 
-    boolean isSupport(Camera.Parameters parameters);
-    void set(Camera.Parameters parameters, T t);
+    boolean isSupport(IParameters parameters);
+    void set(IParameters parameters, T t);
 
 }

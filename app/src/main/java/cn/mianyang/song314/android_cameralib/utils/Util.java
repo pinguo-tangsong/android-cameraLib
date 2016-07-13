@@ -18,12 +18,9 @@ package cn.mianyang.song314.android_cameralib.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.admin.DevicePolicyManager;
 import android.content.ActivityNotFoundException;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,19 +29,15 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.hardware.Camera;
-import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Parameters;
 import android.hardware.Camera.Size;
-import android.hardware.camera2.CameraManager;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.ParcelFileDescriptor;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
-import android.util.FloatMath;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.OrientationEventListener;
 import android.view.Surface;
@@ -52,8 +45,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-
-import com.android.gallery3d.R;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -143,8 +134,8 @@ public class Util {
                 context.getSystemService(Context.WINDOW_SERVICE);
         wm.getDefaultDisplay().getMetrics(metrics);
         sPixelDensity = metrics.density;
-        sImageFileNamer = new ImageFileNamer(
-                context.getString(R.string.image_file_name_format));
+//        sImageFileNamer = new ImageFileNamer(
+//                context.getString(R.string.image_file_name_format));
     }
 
     public static int dpToPixel(int dp) {
@@ -296,53 +287,53 @@ public class Util {
         }
     }
 
-    @TargetApi(ApiHelper.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private static void throwIfCameraDisabled(Activity activity) throws CameraDisabledException {
-        // Check if device policy has disabled the camera.
-        if (ApiHelper.HAS_GET_CAMERA_DISABLED) {
-            DevicePolicyManager dpm = (DevicePolicyManager) activity.getSystemService(
-                    Context.DEVICE_POLICY_SERVICE);
-            if (dpm.getCameraDisabled(null)) {
-                throw new CameraDisabledException();
-            }
-        }
-    }
-
-    public static CameraManager.CameraProxy openCamera(Activity activity, int cameraId)
-            throws CameraHardwareException, CameraDisabledException {
-        throwIfCameraDisabled(activity);
-
-        try {
-            return CameraHolder.instance().open(cameraId);
-        } catch (CameraHardwareException e) {
-            // In eng build, we throw the exception so that test tool
-            // can detect it and report it
-            if ("eng".equals(Build.TYPE)) {
-                throw new RuntimeException("openCamera failed", e);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public static void showErrorAndFinish(final Activity activity, int msgId) {
-        DialogInterface.OnClickListener buttonListener =
-                new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                activity.finish();
-            }
-        };
-        TypedValue out = new TypedValue();
-        activity.getTheme().resolveAttribute(android.R.attr.alertDialogIcon, out, true);
-        new AlertDialog.Builder(activity)
-                .setCancelable(false)
-                .setTitle(R.string.camera_error_title)
-                .setMessage(msgId)
-                .setNeutralButton(R.string.dialog_ok, buttonListener)
-                .setIcon(out.resourceId)
-                .show();
-    }
+//    @TargetApi(ApiHelper.VERSION_CODES.ICE_CREAM_SANDWICH)
+//    private static void throwIfCameraDisabled(Activity activity) throws CameraDisabledException {
+//        // Check if device policy has disabled the camera.
+//        if (ApiHelper.HAS_GET_CAMERA_DISABLED) {
+//            DevicePolicyManager dpm = (DevicePolicyManager) activity.getSystemService(
+//                    Context.DEVICE_POLICY_SERVICE);
+//            if (dpm.getCameraDisabled(null)) {
+//                throw new CameraDisabledException();
+//            }
+//        }
+//    }
+//
+//    public static CameraManager.CameraProxy openCamera(Activity activity, int cameraId)
+//            throws CameraHardwareException, CameraDisabledException {
+//        throwIfCameraDisabled(activity);
+//
+//        try {
+//            return CameraHolder.instance().open(cameraId);
+//        } catch (CameraHardwareException e) {
+//            // In eng build, we throw the exception so that test tool
+//            // can detect it and report it
+//            if ("eng".equals(Build.TYPE)) {
+//                throw new RuntimeException("openCamera failed", e);
+//            } else {
+//                throw e;
+//            }
+//        }
+//    }
+//
+//    public static void showErrorAndFinish(final Activity activity, int msgId) {
+//        DialogInterface.OnClickListener buttonListener =
+//                new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                activity.finish();
+//            }
+//        };
+//        TypedValue out = new TypedValue();
+//        activity.getTheme().resolveAttribute(android.R.attr.alertDialogIcon, out, true);
+//        new AlertDialog.Builder(activity)
+//                .setCancelable(false)
+//                .setTitle(R.string.camera_error_title)
+//                .setMessage(msgId)
+//                .setNeutralButton(R.string.dialog_ok, buttonListener)
+//                .setIcon(out.resourceId)
+//                .show();
+//    }
 
     public static <T> T checkNotNull(T object) {
         if (object == null) throw new NullPointerException();
@@ -363,11 +354,11 @@ public class Util {
         return n + 1;
     }
 
-    public static float distance(float x, float y, float sx, float sy) {
-        float dx = x - sx;
-        float dy = y - sy;
-        return FloatMath.sqrt(dx * dx + dy * dy);
-    }
+//    public static float distance(float x, float y, float sx, float sy) {
+//        float dx = x - sx;
+//        float dy = y - sy;
+//        return FloatMath.sqrt(dx * dx + dy * dy);
+//    }
 
     public static int clamp(int x, int min, int max) {
         if (x > max) return max;
@@ -544,28 +535,28 @@ public class Util {
         return true;
     }
 
-    // This is for test only. Allow the camera to launch the specific camera.
-    public static int getCameraFacingIntentExtras(Activity currentActivity) {
-        int cameraId = -1;
-
-        int intentCameraId =
-                currentActivity.getIntent().getIntExtra(Util.EXTRAS_CAMERA_FACING, -1);
-
-        if (isFrontCameraIntent(intentCameraId)) {
-            // Check if the front camera exist
-            int frontCameraId = CameraHolder.instance().getFrontCameraId();
-            if (frontCameraId != -1) {
-                cameraId = frontCameraId;
-            }
-        } else if (isBackCameraIntent(intentCameraId)) {
-            // Check if the back camera exist
-            int backCameraId = CameraHolder.instance().getBackCameraId();
-            if (backCameraId != -1) {
-                cameraId = backCameraId;
-            }
-        }
-        return cameraId;
-    }
+//    // This is for test only. Allow the camera to launch the specific camera.
+//    public static int getCameraFacingIntentExtras(Activity currentActivity) {
+//        int cameraId = -1;
+//
+//        int intentCameraId =
+//                currentActivity.getIntent().getIntExtra(Util.EXTRAS_CAMERA_FACING, -1);
+//
+//        if (isFrontCameraIntent(intentCameraId)) {
+//            // Check if the front camera exist
+//            int frontCameraId = CameraHolder.instance().getFrontCameraId();
+//            if (frontCameraId != -1) {
+//                cameraId = frontCameraId;
+//            }
+//        } else if (isBackCameraIntent(intentCameraId)) {
+//            // Check if the back camera exist
+//            int backCameraId = CameraHolder.instance().getBackCameraId();
+//            if (backCameraId != -1) {
+//                cameraId = backCameraId;
+//            }
+//        }
+//        return cameraId;
+//    }
 
     private static boolean isFrontCameraIntent(int intentCameraId) {
         return (intentCameraId == android.hardware.Camera.CameraInfo.CAMERA_FACING_FRONT);
@@ -691,20 +682,20 @@ public class Util {
         view.setVisibility(View.GONE);
     }
 
-    public static int getJpegRotation(int cameraId, int orientation) {
-        // See android.hardware.Camera.Parameters.setRotation for
-        // documentation.
-        int rotation = 0;
-        if (orientation != OrientationEventListener.ORIENTATION_UNKNOWN) {
-            CameraInfo info = CameraHolder.instance().getCameraInfo()[cameraId];
-            if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
-                rotation = (info.orientation - orientation + 360) % 360;
-            } else {  // back-facing camera
-                rotation = (info.orientation + orientation) % 360;
-            }
-        }
-        return rotation;
-    }
+//    public static int getJpegRotation(int cameraId, int orientation) {
+//        // See android.hardware.Camera.Parameters.setRotation for
+//        // documentation.
+//        int rotation = 0;
+//        if (orientation != OrientationEventListener.ORIENTATION_UNKNOWN) {
+//            CameraInfo info = CameraHolder.instance().getCameraInfo()[cameraId];
+//            if (info.facing == CameraInfo.CAMERA_FACING_FRONT) {
+//                rotation = (info.orientation - orientation + 360) % 360;
+//            } else {  // back-facing camera
+//                rotation = (info.orientation + orientation) % 360;
+//            }
+//        }
+//        return rotation;
+//    }
 
     public static void setGpsParameters(Parameters parameters, Location loc) {
         // Clear previous GPS location from the parameters.
