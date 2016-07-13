@@ -17,6 +17,7 @@ public class ExposureSetting extends BaseSetting<Float> {
 
     @Override
     public boolean isSupport(IParameters parameters) {
+
         int max = parameters.getMaxExposureCompensation();
         int min = parameters.getMinExposureCompensation();
         float step = parameters.getExposureCompensationStep();
@@ -29,7 +30,7 @@ public class ExposureSetting extends BaseSetting<Float> {
         }
 
 
-        value = new float[count];
+        value = new Float[count];
         text = new CharSequence[count];
 
         for (int i = 0; i < count; i ++) {

@@ -29,14 +29,12 @@ public class MainActivity extends AppCompatActivity implements NormalRecyclerVie
     RecyclerView mRecyclerView;
     private NormalRecyclerViewAdapter mAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-
 
         // Create an instance of Camera
         mCamera = new LibCamera(mCameraId);

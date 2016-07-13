@@ -25,6 +25,7 @@ public class SettingFactory {
         settings.add(new Capture(CAPTURE));
         settings.add(new Capture(SWAP_CAM));
         settings.add(new ExposureSetting("亮度"));
+        settings.add(new FocusMode("对焦优先"));
 
 
         Iterator<BaseSetting> it = settings.iterator();
