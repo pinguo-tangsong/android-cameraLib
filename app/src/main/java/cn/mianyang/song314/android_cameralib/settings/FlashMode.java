@@ -10,15 +10,16 @@ import cn.mianyang.song314.android_cameralib.hal.IParameters;
  *
  * @author tangsong
  */
-public class FocusMode extends BaseSetting<String> {
+public class FlashMode extends BaseSetting<String> {
 
-    public FocusMode(String name) {
+    public FlashMode(String name) {
         super(name);
     }
 
     @Override
     public boolean isSupport(IParameters parameters) {
-        List<String> list = parameters.getSupportedFocusModes();
+        List<String> list = parameters.getSupportedFlashModes();
+
         if (list == null || list.isEmpty()) {
             return false;
         }
@@ -37,6 +38,6 @@ public class FocusMode extends BaseSetting<String> {
 
     @Override
     public void set(IParameters parameters, String s) {
-        parameters.setFocusMode(s);
+        parameters.setFlashMode(s);
     }
 }

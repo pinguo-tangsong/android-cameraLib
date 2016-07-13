@@ -71,6 +71,11 @@ public class LibCamera implements ICamera<Camera.Parameters> {
         return mParameters;
     }
 
+    @Override
+    public void autoFocus() {
+        mCamera.autoFocus(null);
+    }
+
     /** Check if this device has a camera */
     public boolean checkCameraHardware() {
         if (gApp.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)){

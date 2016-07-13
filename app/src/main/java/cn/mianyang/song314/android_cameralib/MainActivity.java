@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NormalRecyclerVie
         if (setting.value == null) {
 
             if (SettingFactory.CAPTURE.equals(setting.name)) {
-
+                mCamera.autoFocus();
             }
 
             if (SettingFactory.SWAP_CAM.equals(setting.name)) {

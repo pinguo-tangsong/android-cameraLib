@@ -28,4 +28,6 @@ public interface ICamera<P> {
     void setPreviewDisplay(SurfaceHolder holder) throws IOException;
 
     Camera get();
+
+    void autoFocus();
 }

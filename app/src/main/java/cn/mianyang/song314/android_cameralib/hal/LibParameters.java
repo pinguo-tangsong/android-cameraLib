@@ -255,7 +255,7 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public String getFlashMode() {
-        return null;
+        return mParameters.getFlashMode();
     }
 
     @Override
@@ -265,7 +265,7 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public List<String> getSupportedFlashModes() {
-        return null;
+        return mParameters.getSupportedFlashModes();
     }
 
     @Override
@@ -275,12 +275,12 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public void setFocusMode(String value) {
-
+        mParameters.setFocusMode(value);
     }
 
     @Override
     public List<String> getSupportedFocusModes() {
-        return mParameters.getSupportedFlashModes();
+        return mParameters.getSupportedFocusModes();
     }
 
     @Override
