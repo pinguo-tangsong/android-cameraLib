@@ -10,8 +10,10 @@ import cn.mianyang.song314.android_cameralib.hal.IParameters;
  */
 public class ExposureSetting extends BaseSetting<Float> {
 
-    public float[] value;
-    public CharSequence[] text;
+
+    public ExposureSetting(String name) {
+        super(name);
+    }
 
     @Override
     public boolean isSupport(IParameters parameters) {
