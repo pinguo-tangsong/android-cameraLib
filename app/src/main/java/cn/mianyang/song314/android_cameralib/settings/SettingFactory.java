@@ -37,6 +37,7 @@ public class SettingFactory {
         settings.add(new FocusMode("对焦优先"));
         settings.add(new FlashMode("闪光灯"));
 
+        parameters.get();
 
         Iterator<BaseSetting> it = settings.iterator();
 
