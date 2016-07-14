@@ -43,6 +43,7 @@ public class SettingFactory {
         settings.add(new Zoom(ZOOM));
         settings.add(new WhiteBalance(WHITE_BALANCE));
 
+        parameters.get();
 
         Iterator<BaseSetting> it = settings.iterator();
 
