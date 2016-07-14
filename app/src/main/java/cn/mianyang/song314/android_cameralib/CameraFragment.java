@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,8 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
     RecyclerView mRecyclerView2;
     private NormalRecyclerViewAdapter mAdapter;
     private Activity mActivity;
+    @BindView(R.id.camera_preview)
+    ViewGroup mCameraPreviewLayout;
 
 
     public CameraFragment() {
@@ -98,25 +101,41 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-
         ButterKnife.bind(this, view);
 
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        mRecyclerView2.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        openCamera();
+        initSettingAdapter();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mCamera.stopPreview();
+        mCamera.release();
+    }
+
+    private void openCamera() {
         // Create an instance of Camera
         mCamera = new LibCamera(mCameraId);
         mCamera.open();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
-        initSettingAdapter();
 
-        mRecyclerView2.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false));
+        if (mPreview == null) {
+            // Create our Preview view and set it as the content of our activity.
+            mPreview = new CameraPreview(mActivity);
+            mCameraPreviewLayout.addView(mPreview, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        }
 
-        // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraPreview(mActivity);
         mPreview.setCamera(mCamera, mCameraId);
-        ViewGroup preview = (ViewGroup) view.findViewById(R.id.camera_preview);
-        preview.addView(mPreview, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-
-        super.onViewCreated(view, savedInstanceState);
+        mPreview.surfaceCreated(mPreview.getHolder());
     }
 
     private void initSettingAdapter() {
@@ -130,7 +149,14 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
         if (setting.value == null) {
 
             if (SettingFactory.CAPTURE.equals(setting.name)) {
-                mCamera.autoFocus();
+//                mCamera.autoFocus();
+                mCamera.get().takePicture(null, null, new Camera.PictureCallback() {
+                    @Override
+                    public void onPictureTaken(byte[] bytes, Camera camera) {
+                        Log.i("song", "onPictureTaken : " + bytes);
+                        mCamera.startPreview();
+                    }
+                });
             }
 
             if (SettingFactory.SWAP_CAM.equals(setting.name)) {
@@ -139,12 +165,8 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
 
                 final int cameraId = mCameraId == Camera.CameraInfo.CAMERA_FACING_BACK ? Camera.CameraInfo.CAMERA_FACING_FRONT : Camera.CameraInfo.CAMERA_FACING_BACK;
                 mCameraId = cameraId;
-                mCamera = new LibCamera(mCameraId);
-                mCamera.open();
+                openCamera();
                 initSettingAdapter();
-
-                mPreview.setCamera(mCamera, cameraId);
-                mPreview.surfaceCreated(mPreview.getHolder());
             }
 
         } else {
@@ -155,6 +177,7 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
                 public void onItemClick(int position, BaseSetting setting) {
                     setting.set(mCamera.getParameters(), setting.value[position]);
                     mCamera.setParameters(mCamera.getParameters());
+                    mPreview.setAspectRatioAuto();
                 }
             });
 

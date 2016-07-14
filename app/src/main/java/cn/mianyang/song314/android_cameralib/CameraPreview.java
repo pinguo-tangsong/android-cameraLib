@@ -42,6 +42,10 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 //        activity.getWindowManager().getDefaultDisplay().getSize(mWindowSize);
 //
 //        CameraLibUtils.chooseOptimalSize(mParam.getSupportedPreviewSizes(), );
+        setAspectRatioAuto();
+    }
+
+    public void setAspectRatioAuto() {
         Camera.Size prevSize = mParam.getPreviewSize();
         setAspectRatio(prevSize.height, prevSize.width);
     }
@@ -105,7 +109,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         }
         mRatioWidth = width;
         mRatioHeight = height;
-        requestLayout();
+        invalidate();
     }
 
     @Override
@@ -122,5 +126,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
                 setMeasuredDimension(height * mRatioWidth / mRatioHeight, height);
             }
         }
+
+        Log.i("song", "on measure");
     }
 }
