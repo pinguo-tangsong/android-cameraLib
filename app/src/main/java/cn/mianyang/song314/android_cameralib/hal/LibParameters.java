@@ -35,7 +35,7 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public List<Camera.Size> getSupportedPreviewSizes() {
-        return null;
+        return mParameters.getSupportedPreviewSizes();
     }
 
     @Override
@@ -130,7 +130,7 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public void setPictureSize(int width, int height) {
-
+        mParameters.setPictureSize(width,height);
     }
 
     @Override
@@ -140,7 +140,7 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public List<Camera.Size> getSupportedPictureSizes() {
-        return null;
+        return mParameters.getSupportedPictureSizes();
     }
 
     @Override

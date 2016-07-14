@@ -1,5 +1,8 @@
 package cn.mianyang.song314.android_cameralib.settings;
 
+
+import android.hardware.Camera;
+
 import java.util.List;
 
 import cn.mianyang.song314.android_cameralib.hal.IParameters;
@@ -7,33 +10,32 @@ import cn.mianyang.song314.android_cameralib.hal.IParameters;
 /**
  * Created by tianwenjie on 7/14/16.
  */
-public class WhiteBalance extends BaseSetting<String> {
-    public WhiteBalance(String name) {
+public class PictureSize extends BaseSetting<Camera.Size> {
+    public PictureSize(String name) {
         super(name);
     }
 
     @Override
     public boolean isSupport(IParameters parameters) {
-        List<String> list = parameters.getSupportedWhiteBalance();
-        if (list == null || list.isEmpty()) {
+        List<Camera.Size> list = parameters.getSupportedPictureSizes();
+        if (list == null) {
             return false;
         }
-
         int count = list.size();
-        value = new String[count];
+        value = new Camera.Size[count];
         text = new CharSequence[count];
 
         for (int i = 0; i < count; i++) {
             value[i] = list.get(i);
-            text[i] = list.get(i);
+            text[i] = String.valueOf(list.get(i).width + "x" + list.get(i).height);
         }
 
         return true;
+
     }
 
-
     @Override
-    public void set(IParameters parameters, String s) {
-        parameters.setWhiteBalance(s);
+    public void set(IParameters parameters, Camera.Size size) {
+        parameters.setPictureSize(size.width, size.height);
     }
 }

@@ -10,8 +10,9 @@ import cn.mianyang.song314.android_cameralib.hal.IParameters;
 /**
  * time: 7/12/16
  * description:
- *  FlashMode,ExposureSetting,FocusMode,colorEffect, Zoom
- * todo  pictureSize, previewSize, WhiteBalance,
+ * FlashMode,ExposureSetting,FocusMode,colorEffect, Zoom ,WhiteBalance,pictureSize
+ * todo  , previewSize,
+ *
  * @author tangsong
  */
 public class SettingFactory {
@@ -19,20 +20,20 @@ public class SettingFactory {
     public static final String CAPTURE = "拍照";
     public static final String SWAP_CAM = "切换";
     private static final String EXPOSURE = "亮度";
-    private  static final String COLOR ="颜色";
-    private  static final String ZOOM="变焦";
-    private  static  final String WHITE_BALANCE="白平衡";
+    private static final String COLOR = "颜色";
+    private static final String ZOOM = "变焦";
+    private static final String WHITE_BALANCE = "白平衡";
+    private static final String PICTURE_SIZE = "图片大小";
+    private static final String PREVIEW_SIZE = "预览图片大小";
 
 
     /**
-     *
      * @param parameters
      * @return
      */
     public static ArrayList<BaseSetting> build(final IParameters<Camera.Parameters> parameters) {
 
         ArrayList<BaseSetting> settings = new ArrayList<>();
-
 
         settings.add(new Capture(CAPTURE));
         settings.add(new Capture(SWAP_CAM));
@@ -42,6 +43,8 @@ public class SettingFactory {
         settings.add(new ColorEffect(COLOR));
         settings.add(new Zoom(ZOOM));
         settings.add(new WhiteBalance(WHITE_BALANCE));
+        settings.add(new PictureSize(PICTURE_SIZE));
+        settings.add(new PreviewSize(PREVIEW_SIZE));
 
         parameters.get();
 

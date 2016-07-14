@@ -31,7 +31,7 @@ public class ColorEffect extends BaseSetting<String> {
     }
     @Override
     public void set(IParameters parameters, String s) {
-            parameters.setColorEffect(s);
-        }
-
+        parameters.setColorEffect(s);
     }
+
+}

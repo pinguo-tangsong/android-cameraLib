@@ -27,7 +27,7 @@ public class FocusMode extends BaseSetting<String> {
         value = new String[count];
         text = new CharSequence[count];
 
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             value[i] = list.get(i);
             text[i] = list.get(i);
         }

@@ -31,8 +31,8 @@ public class Zoom extends BaseSetting<Integer> {
     }
 
     @Override
-    public void set(IParameters parameters,Integer integer) {
-         parameters.setZoom(integer);
+    public void set(IParameters parameters, Integer integer) {
+        parameters.setZoom(integer);
 
     }
 }

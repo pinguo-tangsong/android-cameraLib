@@ -23,7 +23,7 @@ public class ExposureSetting extends BaseSetting<Float> {
         float step = parameters.getExposureCompensationStep();
         int count = (int) ((max - min) / step);
 
-        if (max == min||
+        if (max == min ||
                 step == 0 ||
                 count == 0) {
             return false;
@@ -33,7 +33,7 @@ public class ExposureSetting extends BaseSetting<Float> {
         value = new Float[count];
         text = new CharSequence[count];
 
-        for (int i = 0; i < count; i ++) {
+        for (int i = 0; i < count; i++) {
             value[i] = min + (i * step);
             text[i] = String.valueOf(value[i]);
         }
