@@ -200,12 +200,13 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public void setWhiteBalance(String value) {
+        mParameters.setWhiteBalance(value);
 
     }
 
     @Override
     public List<String> getSupportedWhiteBalance() {
-        return null;
+        return mParameters.getSupportedWhiteBalance();
     }
 
     @Override

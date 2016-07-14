@@ -21,6 +21,7 @@ public class SettingFactory {
     private static final String EXPOSURE = "亮度";
     private  static final String COLOR ="颜色";
     private  static final String ZOOM="变焦";
+    private  static  final String WHITE_BALANCE="白平衡";
 
 
     /**
@@ -40,6 +41,7 @@ public class SettingFactory {
         settings.add(new FlashMode("闪光灯"));
         settings.add(new ColorEffect(COLOR));
         settings.add(new Zoom(ZOOM));
+        settings.add(new WhiteBalance(WHITE_BALANCE));
 
 
         Iterator<BaseSetting> it = settings.iterator();
