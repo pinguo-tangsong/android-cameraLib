@@ -84,4 +84,8 @@ public class MainActivity extends AppCompatActivity implements NormalRecyclerVie
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

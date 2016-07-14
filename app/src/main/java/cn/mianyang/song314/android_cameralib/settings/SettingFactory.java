@@ -10,8 +10,8 @@ import cn.mianyang.song314.android_cameralib.hal.IParameters;
 /**
  * time: 7/12/16
  * description:
- *  FlashMode,ExposureSetting,FocusMode
- * todo colorEffect, pictureSize, previewSize, WhiteBalance, Zoom
+ *  FlashMode,ExposureSetting,FocusMode,colorEffect, Zoom
+ * todo  pictureSize, previewSize, WhiteBalance,
  * @author tangsong
  */
 public class SettingFactory {
@@ -20,6 +20,7 @@ public class SettingFactory {
     public static final String SWAP_CAM = "切换";
     private static final String EXPOSURE = "亮度";
     private  static final String COLOR ="颜色";
+    private  static final String ZOOM="变焦";
 
 
     /**
@@ -31,12 +32,14 @@ public class SettingFactory {
 
         ArrayList<BaseSetting> settings = new ArrayList<>();
 
+
         settings.add(new Capture(CAPTURE));
         settings.add(new Capture(SWAP_CAM));
         settings.add(new ExposureSetting(EXPOSURE));
         settings.add(new FocusMode("对焦优先"));
         settings.add(new FlashMode("闪光灯"));
         settings.add(new ColorEffect(COLOR));
+        settings.add(new Zoom(ZOOM));
 
 
         Iterator<BaseSetting> it = settings.iterator();

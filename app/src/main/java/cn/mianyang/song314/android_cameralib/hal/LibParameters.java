@@ -362,22 +362,23 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public void setZoom(int value) {
+         mParameters.setZoom(value);
 
     }
 
     @Override
     public boolean isZoomSupported() {
-        return false;
+        return mParameters.isZoomSupported();
     }
 
     @Override
     public int getMaxZoom() {
-        return 0;
+        return mParameters.getMaxZoom();
     }
 
     @Override
     public List<Integer> getZoomRatios() {
-        return null;
+        return mParameters.getZoomRatios();
     }
 
     @Override
