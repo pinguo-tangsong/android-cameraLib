@@ -210,17 +210,19 @@ public class LibParameters implements IParameters<Camera.Parameters> {
 
     @Override
     public String getColorEffect() {
-        return null;
+        return mParameters.getColorEffect();
     }
 
     @Override
     public void setColorEffect(String value) {
+        mParameters.setColorEffect(value);
+
 
     }
 
     @Override
     public List<String> getSupportedColorEffects() {
-        return null;
+        return mParameters.getSupportedColorEffects();
     }
 
     @Override
