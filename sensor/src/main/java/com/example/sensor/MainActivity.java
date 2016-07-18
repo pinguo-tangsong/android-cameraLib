@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private static TextView textview6;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,40 +78,40 @@ public class MainActivity extends AppCompatActivity {
             Log.i("log", x + y + z);
             textview1.setText(z);
             textview.setText(y);
-            if ((Y <= 2&& Y >= -2) && ((Z >= 80 && Z <= 90) || (Z >= -90 && Z <= -80))){
+            if ((Y <= 2 && Y >= -2) && ((Z >= 80 && Z <= 90) || (Z >= -90 && Z <= -80))) {
                 textview2.setText("横拍");
-            }else if((Y <= -85 && Y> -90) &&(Z <= 2 && Z >= -2)){
+            } else if ((Y <= -85 && Y >= -90) && (Z <= 2 && Z >= -2)) {
                 textview2.setText("竖拍");
-            }else if ( (Y <=2 && Y >= -2) && ((Z <=2 && Z >= -2 ))){
+            } else if ((Y <= 2 && Y >= -2) && ((Z <= 2 && Z >= -2))) {
                 textview2.setText("水平拍");
-            }else {
+            } else {
                 textview2.setText("");
             }
 
-            if (Z > 2 && Z < 10){
+            if (Z > 2 && Z < 10) {
                 textview4.setText(R.string.ZOOM_IN);
-            }else {
+            } else {
                 textview4.setText("");
             }
-            if (Z > -10 && Z < -2 ){
+            if (Z > -10 && Z < -2) {
                 textview5.setText(R.string.ZOOM_IN);
-            }else {
+            } else {
                 textview5.setText("");
             }
-            if (Y > 2 && Y <10){
+            if (Y > 2 && Y < 10) {
                 textview3.setText(R.string.ZOOM_IN);
-            }else {
+            } else if (Y > -85 && Y < -75) {
+                textview3.setText(R.string.ZOOM_IN);
+            } else {
                 textview3.setText("");
             }
-            if (Y > -10  && Y <-2 ){
+            if (Y > -10 && Y < -2) {
                 textview6.setText(R.string.ZOOM_IN);
-            }else {textview6.setText("");
+            } else if (Y > -95 && Y < -90) {
+                textview6.setText(R.string.ZOOM_IN);
+            } else {
+                textview6.setText("");
             }
-//            if (Y > -85 && Y < -75){
-//                textview3.setText(R.string.ZOOM_IN);
-//            }else {
-//                textview3.setText("");
-//            }
 //            if (Y > -95 && Y < -90){
 //                textview6.setText(R.string.ZOOM_IN);
 //            }else {
@@ -130,15 +128,12 @@ public class MainActivity extends AppCompatActivity {
 //            }
 
 
-
         }
 
         @Override
         public void onAccuracyChanged(Sensor sensor, int i) {
         }
     };
-
-
 
 
 }
