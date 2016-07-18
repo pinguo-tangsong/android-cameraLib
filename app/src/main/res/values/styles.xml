@@ -10,5 +10,6 @@
 
     <style name="AppFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/bg_welcome</item>
     </style>
 </resources>
