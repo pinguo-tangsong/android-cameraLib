@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
+import com.orhanobut.logger.Logger;
+
 import java.io.IOException;
 
 import cn.mianyang.song314.android_cameralib.hal.ICamera;
@@ -51,6 +53,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
     }
 
     public void surfaceCreated(SurfaceHolder holder) {
+        Logger.i("surfaceCreated");
         // The Surface has been created, now tell the camera where to draw the preview.
         try {
             mCamera.setPreviewDisplay(holder);
@@ -64,11 +67,14 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
 
     public void surfaceDestroyed(SurfaceHolder holder) {
         // empty. Take care of releasing the Camera preview in your activity.
+        Logger.i("surfaceDestroye");
     }
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
         // If your preview can change or rotate, take care of those events here.
         // Make sure to stop the preview before resizing or reformatting it.
+
+        Logger.i("surfaceChanged : " + mHolder.getSurface());
 
         if (mHolder.getSurface() == null){
           // preview surface does not exist
@@ -93,7 +99,7 @@ public class CameraPreview extends SurfaceView implements SurfaceHolder.Callback
         } catch (Exception e){
             Log.d(TAG, "Error starting camera preview: " + e.getMessage());
         }
-        Log.i("song", "on surfaceChanged");
+
     }
 
     /**

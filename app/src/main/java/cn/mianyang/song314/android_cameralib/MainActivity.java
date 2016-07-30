@@ -35,31 +35,56 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+
+
         Logger
                 .init("song")                 // default PRETTYLOGGER or use just init()
-                .methodCount(3)                 // default 2
+                .methodCount(1)                 // default 2
+                .hideThreadInfo()
 //                .hideThreadInfo()               // default shown
                 .logLevel(LogLevel.FULL)        // default LogLevel.FULL
                 .methodOffset(0);             // default 0
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(MainActivity.this);
 
-        ICamera camera = CameraManager.getCamera();
+
 
         OttoBus.getInstance().register(this);
 
+
+
+//        Observable.empty()
+//                .delay(1, TimeUnit.SECONDS)
+//                .doOnCompleted(new Action0() {
+//                    @Override
+//                    public void call() {
+//                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//                        ft.replace(R.id.content_fragment, new BaseFragment());
+//                        ft.addToBackStack("d");
+//                        ft.commit();
+//                    }
+//                })
+//                .subscribe();
+      }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mImageView.setVisibility(View.VISIBLE);
+        ICamera camera = CameraManager.getCamera();
         Observable.just(camera)
+                .observeOn(Schedulers.io())
                 .doOnNext(new Action1<ICamera>() {
                     @Override
                     public void call(ICamera iCamera) {
-                        ButterKnife.bind(MainActivity.this);
                         iCamera.open();
-                        SystemClock.sleep(500);
+                        SystemClock.sleep(2000);
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
                 .subscribe(new Action1<ICamera>() {
                     @Override
                     public void call(ICamera iCamera) {
@@ -77,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
                                     @Override
                                     public void onAnimationEnd(Animator animation) {
-                                        mImageView.setImageBitmap(null);
-                                        mImageView.setVisibility(View.GONE);
+                                        mImageView.setVisibility(View.INVISIBLE);
+//                                        mImageView.setBackground(null);
                                     }
 
                                     @Override
@@ -95,25 +120,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
-//        Observable.empty()
-//                .delay(1, TimeUnit.SECONDS)
-//                .doOnCompleted(new Action0() {
-//                    @Override
-//                    public void call() {
-//                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//                        ft.replace(R.id.content_fragment, new BaseFragment());
-//                        ft.addToBackStack("d");
-//                        ft.commit();
-//                    }
-//                })
-//                .subscribe();
-      }
-
-    public void onEvent(OnCameraStartPreviewEvent event) {
-        mImageView.setVisibility(View.INVISIBLE);
     }
 
+//    public void onEvent(OnCameraStartPreviewEvent event) {
+//        mImageView.setVisibility(View.INVISIBLE);
+//    }
 
     @Override
     protected void onDestroy() {
