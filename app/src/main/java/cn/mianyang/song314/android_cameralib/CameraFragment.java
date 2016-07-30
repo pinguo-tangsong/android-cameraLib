@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.mianyang.song314.android_cameralib.hal.CameraManager;
 import cn.mianyang.song314.android_cameralib.hal.ICamera;
-import cn.mianyang.song314.android_cameralib.hal.LibCamera;
 import cn.mianyang.song314.android_cameralib.settings.BaseSetting;
 import cn.mianyang.song314.android_cameralib.settings.SettingFactory;
 import cn.mianyang.song314.android_cameralib.utils.NormalRecyclerViewAdapter;
@@ -31,7 +31,7 @@ import cn.mianyang.song314.android_cameralib.utils.NormalRecyclerViewAdapter;
  * Use the {@link CameraFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CameraFragment extends Fragment implements NormalRecyclerViewAdapter.OnItemClickListener {
+public class CameraFragment extends BaseFragment implements NormalRecyclerViewAdapter.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -125,8 +125,7 @@ public class CameraFragment extends Fragment implements NormalRecyclerViewAdapte
 
     private void openCamera() {
         // Create an instance of Camera
-        mCamera = new LibCamera(mCameraId);
-        mCamera.open();
+        mCamera = CameraManager.getCamera(mCameraId);
 
         if (mPreview == null) {
             // Create our Preview view and set it as the content of our activity.

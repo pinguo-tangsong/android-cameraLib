@@ -7,6 +7,9 @@ import android.view.SurfaceHolder;
 
 import java.io.IOException;
 
+import cn.mianyang.song314.android_cameralib.OttoBus;
+import cn.mianyang.song314.android_cameralib.event.OnCameraStartPreviewEvent;
+
 /**
  * time: 7/7/16
  * description:
@@ -18,6 +21,12 @@ public class LibCamera implements ICamera<Camera.Parameters> {
     private IParameters<Camera.Parameters> mParameters;
 
     public static Application gApp;
+
+    @Override
+    public int getCameraId() {
+        return mCameraId;
+    }
+
     private final int mCameraId;
 
     public LibCamera(int cameraId) {
@@ -42,12 +51,13 @@ public class LibCamera implements ICamera<Camera.Parameters> {
     }
     @Override
     public void startPreview() {
-        mCamera.startPreview();;
+        mCamera.startPreview();
+        OttoBus.getInstance().post(new OnCameraStartPreviewEvent());
     }
 
     @Override
     public void stopPreview() {
-        mCamera.stopPreview();;
+        mCamera.stopPreview();
     }
 
     @Override
